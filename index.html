@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Sanju 🤍</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+
+body{
+  font-family:'Poppins', sans-serif;
+  background: linear-gradient(135deg,#ffd6e8,#e6d6ff);
+  color:#444;
+  overflow-x:hidden;
+}
+
+section{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:30px 20px;
+}
+
+h1,h2{
+  font-family:'Dancing Script', cursive;
+  color:#b76e79;
+}
+
+h1{font-size:42px;margin-bottom:15px;}
+h2{font-size:30px;margin-bottom:20px;}
+
+p{
+  max-width:90%;
+  line-height:1.7;
+  font-size:15px;
+  margin-bottom:10px;
+}
+
+.nav-buttons{
+  margin-top:35px;
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+button{
+  padding:10px 20px;
+  border:none;
+  border-radius:30px;
+  background:#b76e79;
+  color:white;
+  font-size:14px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#944e5e;
+  transform:scale(1.05);
+}
+
+.dark-section{
+  background:#2c1e2f;
+  color:white;
+}
+
+.dark-section h2{color:#ffd6e8;}
+
+/* Gallery */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:15px;
+  width:100%;
+  max-width:500px;
+  margin-top:20px;
+}
+
+.gallery img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+  border-radius:15px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.gallery img:hover{
+  transform:scale(1.05);
+}
+
+/* Lightbox */
+.lightbox{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.8);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.lightbox img{
+  max-width:90%;
+  max-height:80%;
+  border-radius:15px;
+}
+
+/* Confetti */
+#confetti{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+}
+
+@media(max-width:480px){
+  h1{font-size:34px;}
+  h2{font-size:26px;}
+  p{font-size:14px;}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img">
+</div>
+
+<!-- Slide 1 -->
+<section id="slide1">
+  <h1>On this day... 🤍</h1>
+  <p>The world became more beautiful... because you were born.</p>
+  <h1>Sanjana</h1>
+  <div class="nav-buttons">
+    <button onclick="nextSlide('slide2')">Next ↓</button>
+  </div>
+</section>
+
+<!-- Slide 2 -->
+<section id="slide2">
+  <h2>365 Days With My Sweetest Blessing</h2>
+  <p>It has only been one year… but loving you feels like forever.</p>
+  <p>In your smile, I found comfort.</p>
+  <p>In your heart, I found my home.</p>
+  <div class="nav-buttons">
+    <button onclick="prevSlide('slide1')">↑ Back</button>
+    <button onclick="nextSlide('gallery')">Next ↓</button>
+  </div>
+</section>
+
+<!-- Photo Gallery Section -->
+<section id="gallery">
+  <h2>Our Beautiful Memories 📸</h2>
+  <p>Every picture holds a piece of my heart.</p>
+
+  <div class="gallery">
+    <!-- Replace image1.jpg etc with your real photo names -->
+    <img src="CutieeSanju.jpeg" onclick="openLightbox(this.src)">
+    <img src="BabySanju.jpeg" onclick="openLightbox(this.src)">
+    <img src="BaddieeSanju.jpeg" onclick="openLightbox(this.src)">
+    <img src="ElegentSanju.jpeg" onclick="openLightbox(this.src)">
+    <img src="SoftySanju.jpeg" onclick="openLightbox(this.src)">
+    <img src="PookieSanju.jpeg" onclick="openLightbox(this.src)">
+  </div>
+
+  <div class="nav-buttons">
+    <button onclick="prevSlide('slide2')">↑ Back</button>
+    <button onclick="nextSlide('slide3')">Next ↓</button>
+  </div>
+</section>
+
+<!-- Emotional Section -->
+<section id="slide3">
+  <h2>The Day We Hugged and Cried</h2>
+  <p>That day… when we held each other and cried…</p>
+  <p>I realized this is not just love.</p>
+  <p>This is forever.</p>
+  <div class="nav-buttons">
+    <button onclick="prevSlide('gallery')">↑ Back</button>
+    <button onclick="nextSlide('slide4')">Next ↓</button>
+  </div>
+</section>
+
+<!-- Birthday -->
+<section id="slide4" class="dark-section">
+  <h2>Happy Birthday, Sanjana 🤍</h2>
+  <p>You are the most gentle, sweet, understanding soul.</p>
+  <p>You are my safest place.</p>
+  <div class="nav-buttons">
+    <button onclick="prevSlide('slide3')">↑ Back</button>
+    <button onclick="showSurprise()">One Last Thing...</button>
+  </div>
+</section>
+
+<!-- Final Surprise -->
+<section id="slide5" style="display:none;">
+  <h1>If I Could Give You One Gift...</h1>
+  <p>It would be the ability to see yourself through my eyes.</p>
+  <p>You are beautiful inside and out.</p>
+  <h2>Happy Birthday 🤍</h2>
+</section>
+
+<script>
+function nextSlide(id){
+  document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+
+function prevSlide(id){
+  document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+
+/* Lightbox */
+function openLightbox(src){
+  document.getElementById("lightbox-img").src=src;
+  document.getElementById("lightbox").style.display="flex";
+}
+
+function closeLightbox(){
+  document.getElementById("lightbox").style.display="none";
+}
+
+/* Surprise */
+function showSurprise(){
+  document.getElementById("slide5").style.display="flex";
+  document.getElementById("slide5").scrollIntoView({behavior:"smooth"});
+  startConfetti();
+}
+
+/* Confetti */
+function startConfetti(){
+  const canvas=document.getElementById("confetti");
+  const ctx=canvas.getContext("2d");
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+
+  let pieces=[];
+  for(let i=0;i<100;i++){
+    pieces.push({
+      x:Math.random()*canvas.width,
+      y:Math.random()*canvas.height,
+      r:Math.random()*6+2
+    });
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="pink";
+    pieces.forEach(p=>{
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fill();
+      p.y+=1;
+      if(p.y>canvas.height){p.y=0;}
+    });
+  }
+
+  setInterval(draw,20);
+}
+</script>
+
+</body>
+</html>
