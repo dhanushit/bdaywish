@@ -31,6 +31,7 @@ section{
 h1,h2{
   font-family:'Dancing Script', cursive;
   color:#b76e79;
+  backdrop-filter: blur(2px);
 }
 
 h1{font-size:42px;margin-bottom:15px;}
@@ -41,6 +42,7 @@ p{
   line-height:1.7;
   font-size:15px;
   margin-bottom:10px;
+  backdrop-filter: blur(2px);
 }
 
 .nav-buttons{
@@ -70,6 +72,7 @@ button:hover{
 .dark-section{
   background:#2c1e2f;
   color:white;
+  z-index: -2;
 }
 
 .dark-section h2{color:#ffd6e8;}
@@ -136,7 +139,7 @@ button:hover{
   width:120px;
   height:120px;
   position:relative;
-  z-index: -1;
+  z-index: 2;
   animation:beat 1s infinite;
 }
 
