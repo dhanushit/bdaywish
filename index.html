@@ -218,6 +218,10 @@ button:hover{
 </section>
 
 <script>
+
+  var isConfetti = false;
+
+  
 function nextSlide(id){
   document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
@@ -240,11 +244,18 @@ function closeLightbox(){
 function showSurprise(){
   document.getElementById("slide5").style.display="flex";
   document.getElementById("slide5").scrollIntoView({behavior:"smooth"});
-  startConfetti();
+  checkConfetti();
+}
+
+function checkConfetti(){
+  if(!isConfetti){
+    startConfetti();
+  }
 }
 
 /* Confetti */
 function startConfetti(){
+  isConfetti = true;
   const canvas=document.getElementById("confetti");
   const ctx=canvas.getContext("2d");
   canvas.width=window.innerWidth;
