@@ -133,9 +133,10 @@ button:hover{
 }
 
 .heart{
-  width:80px;
-  height:80px;
+  width:120px;
+  height:120px;
   position:relative;
+  z-index: -1;
   animation:beat 1s infinite;
 }
 
@@ -246,7 +247,7 @@ button:hover{
 </section>
 
 <script>
-var isConfetti = false;
+let isConfetti = false;
 
 function nextSlide(id){
   document.getElementById(id).scrollIntoView({behavior:"smooth"});
@@ -258,58 +259,90 @@ function prevSlide(id){
 
 /* Lightbox */
 function openLightbox(src){
-  document.getElementById("lightbox-img").src=src;
-  document.getElementById("lightbox").style.display="flex";
+  document.getElementById("lightbox-img").src = src;
+  document.getElementById("lightbox").style.display = "flex";
 }
 
 function closeLightbox(){
-  document.getElementById("lightbox").style.display="none";
+  document.getElementById("lightbox").style.display = "none";
 }
 
 /* Final surprise */
 function showSurprise(){
   const slide = document.getElementById("slide5");
-  slide.style.display="flex";
+  slide.style.display = "flex";
   slide.scrollIntoView({behavior:"smooth"});
 
   setTimeout(()=>{
-    document.querySelector(".final-heart").style.opacity="1";
+    document.querySelector(".final-heart").style.opacity = "1";
   },500);
 
-  if(!isConfetti) startConfetti();
+  
 }
 
-/* Confetti */
+/* ❤️ Heart Confetti (Optimized) */
 function startConfetti(){
   isConfetti = true;
-  const canvas=document.getElementById("confetti");
-  const ctx=canvas.getContext("2d");
-  canvas.width=window.innerWidth;
-  canvas.height=window.innerHeight;
 
-  let pieces=[];
-  for(let i=0;i<100;i++){
-    pieces.push({
-      x:Math.random()*canvas.width,
-      y:Math.random()*canvas.height,
-      r:Math.random()*6+2
+  const canvas = document.getElementById("confetti");
+  const ctx = canvas.getContext("2d");
+
+  function resizeCanvas(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  resizeCanvas();
+  window.addEventListener("resize", resizeCanvas);
+
+  const isMobile = window.innerWidth < 600;
+  const count = isMobile ? 50 : 100;
+
+  let hearts = [];
+
+  for(let i=0;i<count;i++){
+    hearts.push({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      size: Math.random()*6+4,
+      speed: Math.random()*1+0.5
     });
   }
 
-  function draw(){
+  function drawHeart(x, y, size){
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.bezierCurveTo(x, y - size/2, x - size, y - size/2, x - size, y);
+    ctx.bezierCurveTo(x - size, y + size/2, x, y + size, x, y + size*1.2);
+    ctx.bezierCurveTo(x, y + size, x + size, y + size/2, x + size, y);
+    ctx.bezierCurveTo(x + size, y - size/2, x, y - size/2, x, y);
+    ctx.fill();
+  }
+
+  function animate(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle="pink";
-    pieces.forEach(p=>{
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fill();
-      p.y+=1;
-      if(p.y>canvas.height){p.y=0;}
+
+    ctx.fillStyle = "#ff6b81"; // soft pink
+
+    hearts.forEach(h=>{
+      drawHeart(h.x, h.y, h.size);
+
+      h.y += h.speed;
+
+      if(h.y > canvas.height){
+        h.y = -10;
+        h.x = Math.random()*canvas.width;
+      }
     });
+
+    requestAnimationFrame(animate);
   }
 
-  setInterval(draw,20);
+  animate();
 }
+
+startConfetti();
+
 </script>
 
 </body>
