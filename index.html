@@ -127,6 +127,30 @@ button:hover{
   pointer-events:none;
 }
 
+/* ❤️ Heart */
+.heart-container{
+  margin-top:30px;
+}
+
+.heart{
+  width:80px;
+  height:80px;
+  position:relative;
+  animation:beat 1s infinite;
+}
+
+@keyframes beat{
+  0%,100%{transform: scale(1);}
+  50%{transform: scale(1.2);}
+}
+
+/* Final heart reveal */
+.final-heart{
+  margin:25px 0;
+  opacity:0;
+  transition:0.6s;
+}
+
 @media(max-width:480px){
   h1{font-size:34px;}
   h2{font-size:26px;}
@@ -145,9 +169,9 @@ button:hover{
 
 <!-- Slide 1 -->
 <section id="slide1">
-  <h1>On this day... 🤍</h1>
+  <h1>Hey Sanju ❤️</h1>
   <p>The world became more beautiful... because you were born.</p>
-  <h1>Sanjana</h1>
+  <!-- <h1>Sanjana</h1> -->
   <div class="nav-buttons">
     <button onclick="nextSlide('slide2')">Next ↓</button>
   </div>
@@ -165,13 +189,12 @@ button:hover{
   </div>
 </section>
 
-<!-- Photo Gallery Section -->
+<!-- Gallery -->
 <section id="gallery">
   <h2>Our Beautiful Memories 📸</h2>
   <p>Every picture holds a piece of my heart.</p>
 
   <div class="gallery">
-    <!-- Replace image1.jpg etc with your real photo names -->
     <img src="malpe.jpeg" onclick="openLightbox(this.src)">
     <img src="b2b.jpeg" onclick="openLightbox(this.src)">
     <img src="tirupati.jpeg" onclick="openLightbox(this.src)">
@@ -186,7 +209,7 @@ button:hover{
   </div>
 </section>
 
-<!-- Emotional Section -->
+<!-- Emotional -->
 <section id="slide3">
   <h2>The Day We Hugged and Cried</h2>
   <p>That day… when we held each other and cried…</p>
@@ -209,19 +232,22 @@ button:hover{
   </div>
 </section>
 
-<!-- Final Surprise -->
+<!-- FINAL -->
 <section id="slide5" style="display:none;">
   <h1>If I Could Give You One Gift...</h1>
-  <p>It would be the ability to see yourself through my eyes.</p>
-  <p>You are beautiful inside and out.</p>
-  <h2>Happy Birthday 🤍</h2>
+  <p>I Would gift my heart to you.</p>
+  <!-- <p>You are beautiful inside and out.</p> -->
+
+  <div class="heart-container final-heart">
+    <img src="heart.png" class="heart"></div>
+  </div>
+
+  <h2>Happy Birthday ❤️</h2>
 </section>
 
 <script>
+var isConfetti = false;
 
-  var isConfetti = false;
-
-  
 function nextSlide(id){
   document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
@@ -240,17 +266,17 @@ function closeLightbox(){
   document.getElementById("lightbox").style.display="none";
 }
 
-/* Surprise */
+/* Final surprise */
 function showSurprise(){
-  document.getElementById("slide5").style.display="flex";
-  document.getElementById("slide5").scrollIntoView({behavior:"smooth"});
-  checkConfetti();
-}
+  const slide = document.getElementById("slide5");
+  slide.style.display="flex";
+  slide.scrollIntoView({behavior:"smooth"});
 
-function checkConfetti(){
-  if(!isConfetti){
-    startConfetti();
-  }
+  setTimeout(()=>{
+    document.querySelector(".final-heart").style.opacity="1";
+  },500);
+
+  if(!isConfetti) startConfetti();
 }
 
 /* Confetti */
